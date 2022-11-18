@@ -639,16 +639,11 @@
     if (![eventId isKindOfClass:[NSString class]]) {
         eventId = nil;
     }
-    double eventValue = 0.0;
-    NSNumber *eventValueNum = [arguments objectAtIndex:1];
-    if ([eventValueNum isKindOfClass:[NSNumber class]]) {
-        eventValue = [eventValueNum doubleValue];
-    }
-    NSDictionary *eventData = [arguments objectAtIndex:2];
+    NSDictionary *eventData = [arguments objectAtIndex:1];
     if (![eventData isKindOfClass:[NSDictionary class]]) {
         eventData = nil;
     }
-    [TalkingDataSDK onEvent:eventId value:eventValue parameters:eventData];
+    [TalkingDataSDK onEvent:eventId parameters:eventData];
 }
 
 - (void)setGlobalKV:(NSArray *)arguments {

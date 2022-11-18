@@ -43,7 +43,7 @@ public class TalkingDataSDKHybrid {
         return tdHybrid;
     }
     
-    public void execute(final Context context, final String url, final WebView webView) throws Exception {
+    public boolean execute(final Context context, final String url, final WebView webView) throws Exception {
         if (url.startsWith("talkingdata")) {
             this.ctx = context;
             String jsonStr = url.substring(12);
@@ -63,7 +63,9 @@ public class TalkingDataSDKHybrid {
                     e.printStackTrace();
                 }
             }
+            return true;
         }
+        return false;
     }
     
     private void getDeviceId(final JSONArray arguments, final WebView webView) throws JSONException {
@@ -369,10 +371,9 @@ public class TalkingDataSDKHybrid {
     @SuppressWarnings("unused")
     private void onEvent(final JSONArray arguments) throws JSONException {
         String eventId = arguments.getString(0);
-        double eventValue = arguments.getDouble(1);
-        String eventDataJson = arguments.getString(2);
+        String eventDataJson = arguments.getString(1);
         Map<String, Object> eventData = mapFromJsonString(eventDataJson);
-        TalkingDataSDK.onEvent(ctx, eventId, eventValue, eventData);
+        TalkingDataSDK.onEvent(ctx, eventId, eventData);
     }
     
     @SuppressWarnings("unused")

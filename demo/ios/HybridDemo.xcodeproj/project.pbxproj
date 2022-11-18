@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		54441010A9E0FBDBCD843FCE /* www in Resources */ = {isa = PBXBuildFile; fileRef = 54440010A9E0FBDBCD843FCE /* www */; };
 		54441011A9E0FBDBCD843FCE /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 54440011A9E0FBDBCD843FCE /* libc++.tbd */; };
 		54441012A9E0FBDBCD843FCE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 54440012A9E0FBDBCD843FCE /* libz.tbd */; };
 		54441022A9E0FBDBCD843FCE /* TalkingDataSDKHybrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 54440022A9E0FBDBCD843FCE /* TalkingDataSDKHybrid.m */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		54440010A9E0FBDBCD843FCE /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = HybridDemo/www; sourceTree = "<group>"; };
 		54440011A9E0FBDBCD843FCE /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		54440012A9E0FBDBCD843FCE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		54440021A9E0FBDBCD843FCE /* TalkingDataSDKHybrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TalkingDataSDKHybrid.h; path = ../../src/ios/TalkingDataSDKHybrid.h; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 		54440004A9E0FBDBCD843FCE = {
 			isa = PBXGroup;
 			children = (
+				54440010A9E0FBDBCD843FCE /* www */,
 				54440008A9E0FBDBCD843FCE /* HybridDemo */,
 				54440007A9E0FBDBCD843FCE /* TalkingDataSDK */,
 				54440006A9E0FBDBCD843FCE /* Frameworks */,
@@ -164,6 +167,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				54441010A9E0FBDBCD843FCE /* www in Resources */,
 				54441032A9E0FBDBCD843FCE /* Assets.xcassets in Resources */,
 				54441034A9E0FBDBCD843FCE /* LaunchScreen.storyboard in Resources */,
 				54441036A9E0FBDBCD843FCE /* Main.storyboard in Resources */,

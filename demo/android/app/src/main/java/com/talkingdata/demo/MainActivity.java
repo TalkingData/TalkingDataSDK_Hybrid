@@ -22,10 +22,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
-
+        
         WebView webView = findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("https://talkingdata.github.io/TalkingData_Assets/index.html");
+        webView.loadUrl("https://talkingdata.github.io/TalkingDataSDK_Assets/index.html");
         webView.setWebViewClient(new MyWebviewClient());
     }
     
