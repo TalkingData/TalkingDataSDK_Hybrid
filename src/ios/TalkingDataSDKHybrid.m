@@ -59,7 +59,7 @@
     return NO;
 }
 
-- (void)init:(NSArray *)arguments {
+- (void)initSDK:(NSArray *)arguments {
     NSString *appId = [arguments objectAtIndex:0];
     if (![appId isKindOfClass:[NSString class]]) {
         appId = nil;
@@ -72,7 +72,11 @@
     if (![custom isKindOfClass:[NSString class]]) {
         custom = nil;
     }
-    [TalkingDataSDK init:appId channelId:channelId custom:custom];
+    [TalkingDataSDK initSDK:appId channelId:channelId custom:custom];
+}
+
+- (void)startA {
+    [TalkingDataSDK startA];
 }
 
 - (void)backgroundSessionEnabled:(NSArray *)arguments {
@@ -159,7 +163,11 @@
     if (![invitationCode isKindOfClass:[NSString class]]) {
         invitationCode = nil;
     }
-    [TalkingDataSDK onRegister:profileId profile:profile invitationCode:invitationCode];
+    NSDictionary *eventValue = [arguments objectAtIndex:3];
+    if (![eventValue isKindOfClass:[NSDictionary class]]) {
+        eventValue = nil;
+    }
+    [TalkingDataSDK onRegister:profileId profile:profile invitationCode:invitationCode eventValue:eventValue];
 }
 
 - (void)onLogin:(NSArray *)arguments {
@@ -169,7 +177,11 @@
     }
     NSString *profileJson = [arguments objectAtIndex:1];
     TalkingDataProfile *profile = [self profileFromJsonString:profileJson];
-    [TalkingDataSDK onLogin:profileId profile:profile];
+    NSDictionary *eventValue = [arguments objectAtIndex:2];
+    if (![eventValue isKindOfClass:[NSDictionary class]]) {
+        eventValue = nil;
+    }
+    [TalkingDataSDK onLogin:profileId profile:profile eventValue:eventValue];
 }
 
 - (void)onProfileUpdate:(NSArray *)arguments {
@@ -203,7 +215,11 @@
     if (![content isKindOfClass:[NSString class]]) {
         content = nil;
     }
-    [TalkingDataSDK onFavorite:category content:content];
+    NSDictionary *eventValue = [arguments objectAtIndex:2];
+    if (![eventValue isKindOfClass:[NSDictionary class]]) {
+        eventValue = nil;
+    }
+    [TalkingDataSDK onFavorite:category content:content eventValue:eventValue];
 }
 
 - (void)onShare:(NSArray *)arguments {
@@ -215,7 +231,11 @@
     if (![content isKindOfClass:[NSString class]]) {
         content = nil;
     }
-    [TalkingDataSDK onShare:profileId content:content];
+    NSDictionary *eventValue = [arguments objectAtIndex:2];
+    if (![eventValue isKindOfClass:[NSDictionary class]]) {
+        eventValue = nil;
+    }
+    [TalkingDataSDK onShare:profileId content:content eventValue:eventValue];
 }
 
 - (void)onPunch:(NSArray *)arguments {
@@ -381,7 +401,11 @@
     if ([unitPriceNum isKindOfClass:[NSNumber class]]) {
         unitPrice = [unitPriceNum intValue];
     }
-    [TalkingDataSDK onViewItem:itemId category:category name:name unitPrice:unitPrice];
+    NSDictionary *eventValue = [arguments objectAtIndex:4];
+    if (![eventValue isKindOfClass:[NSDictionary class]]) {
+        eventValue = nil;
+    }
+    [TalkingDataSDK onViewItem:itemId category:category name:name unitPrice:unitPrice eventValue:eventValue];
 }
 
 - (void)onAddItemToShoppingCart:(NSArray *)arguments {
@@ -407,7 +431,11 @@
     if ([amountNum isKindOfClass:[NSNumber class]]) {
         amount = [amountNum intValue];
     }
-    [TalkingDataSDK onAddItemToShoppingCart:itemId category:category name:name unitPrice:unitPrice amount:amount];
+    NSDictionary *eventValue = [arguments objectAtIndex:5];
+    if (![eventValue isKindOfClass:[NSDictionary class]]) {
+        eventValue = nil;
+    }
+    [TalkingDataSDK onAddItemToShoppingCart:itemId category:category name:name unitPrice:unitPrice amount:amount eventValue:eventValue];
 }
 
 - (void)onViewShoppingCart:(NSArray *)arguments {
@@ -423,7 +451,11 @@
     if (![profileId isKindOfClass:[NSString class]]) {
         profileId = nil;
     }
-    [TalkingDataSDK onPlaceOrder:order profileId:profileId];
+    NSDictionary *eventValue = [arguments objectAtIndex:2];
+    if (![eventValue isKindOfClass:[NSDictionary class]]) {
+        eventValue = nil;
+    }
+    [TalkingDataSDK onPlaceOrder:order profileId:profileId eventValue:eventValue];
 }
 
 - (void)onOrderPaySucc:(NSArray *)arguments {
@@ -643,7 +675,11 @@
     if (![eventData isKindOfClass:[NSDictionary class]]) {
         eventData = nil;
     }
-    [TalkingDataSDK onEvent:eventId parameters:eventData];
+    NSDictionary *eventValue = [arguments objectAtIndex:2];
+    if (![eventValue isKindOfClass:[NSDictionary class]]) {
+        eventValue = nil;
+    }
+    [TalkingDataSDK onEvent:eventId parameters:eventData eventValue:eventValue];
 }
 
 - (void)setGlobalKV:(NSArray *)arguments {

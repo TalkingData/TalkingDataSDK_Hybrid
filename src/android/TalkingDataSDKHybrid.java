@@ -5,6 +5,7 @@ import android.content.Context;
 import android.webkit.WebView;
 
 import com.tendcloud.tenddata.TalkingDataSDK;
+import com.tendcloud.tenddata.TalkingDataSDKConfig;
 import com.tendcloud.tenddata.TalkingDataProfileType;
 import com.tendcloud.tenddata.TalkingDataGender;
 import com.tendcloud.tenddata.TalkingDataProfile;
@@ -29,7 +30,7 @@ public class TalkingDataSDKHybrid {
     private String currencyPageName;
     
     private TalkingDataSDKHybrid() {
-        com.tendcloud.tenddata.dz.a = 4;
+        com.tendcloud.tenddata.dz.a = 6;
     }
     
     public static TalkingDataSDKHybrid getInstance() {
@@ -68,12 +69,14 @@ public class TalkingDataSDKHybrid {
         return false;
     }
     
+    @SuppressWarnings("unused")
     private void getDeviceId(final JSONArray arguments, final WebView webView) throws JSONException {
         String deviceId = TalkingDataSDK.getDeviceId(ctx);
         String callBack = arguments.getString(0);
         webView.loadUrl("javascript:" + callBack + "('" + deviceId + "')");
     }
     
+    @SuppressWarnings("unused")
     private void getOAID(final JSONArray arguments, final WebView webView) throws JSONException {
         String oaid = TalkingDataSDK.getOAID(ctx);
         String callBack = arguments.getString(0);
@@ -87,6 +90,40 @@ public class TalkingDataSDKHybrid {
     
     @SuppressWarnings("unused")
     private void setLocation(final JSONArray arguments) {
+    }
+    
+    @SuppressWarnings("unused")
+    private void backgroundSessionEnabled(final JSONArray arguments) {
+    }
+    
+    @SuppressWarnings("unused")
+    private void setConfig(final JSONArray arguments) throws JSONException {
+        boolean imei = arguments.getBoolean(0);
+        boolean mac = arguments.getBoolean(1);
+        boolean applist = arguments.getBoolean(2);
+        boolean location = arguments.getBoolean(3);
+        boolean wifi = arguments.getBoolean(4);
+        
+        TalkingDataSDKConfig config = new TalkingDataSDKConfig();
+        config.setIMEIAndMEIDEnabled(imei)
+                .setMACEnabled(mac)
+                .setAppListEnabled(applist)
+                .setLocationEnabled(location)
+                .setWifiEnabled(wifi);
+        TalkingDataSDK.setConfig(config);
+    }
+    
+    @SuppressWarnings("unused")
+    private void initSDK(final JSONArray arguments) throws JSONException {
+        String appId = arguments.getString(0);
+        String channelId = arguments.getString(1);
+        String custom = arguments.getString(2);
+        TalkingDataSDK.initSDK(ctx, appId, channelId, custom);
+    }
+    
+    @SuppressWarnings("unused")
+    private void startA(final JSONArray arguments) {
+        TalkingDataSDK.startA(ctx);
     }
     
     @SuppressWarnings("unused")
@@ -125,7 +162,9 @@ public class TalkingDataSDKHybrid {
         String profileJson = arguments.getString(1);
         TalkingDataProfile profile = profileFromJsonString(profileJson);
         String invitationCode = arguments.getString(2);
-        TalkingDataSDK.onRegister(profileId, profile, invitationCode);
+        String eventValueJson = arguments.getString(3);
+        Map<String, Object> eventValue = mapFromJsonString(eventValueJson);
+        TalkingDataSDK.onRegister(profileId, profile, invitationCode, eventValue);
     }
     
     @SuppressWarnings("unused")
@@ -133,7 +172,9 @@ public class TalkingDataSDKHybrid {
         String profileId = arguments.getString(0);
         String profileJson = arguments.getString(1);
         TalkingDataProfile profile = profileFromJsonString(profileJson);
-        TalkingDataSDK.onLogin(profileId, profile);
+        String eventValueJson = arguments.getString(2);
+        Map<String, Object> eventValue = mapFromJsonString(eventValueJson);
+        TalkingDataSDK.onLogin(profileId, profile, eventValue);
     }
     
     @SuppressWarnings("unused")
@@ -155,14 +196,18 @@ public class TalkingDataSDKHybrid {
     private void onFavorite(final JSONArray arguments) throws JSONException {
         String category = arguments.getString(0);
         String content = arguments.getString(1);
-        TalkingDataSDK.onFavorite(category, content);
+        String eventValueJson = arguments.getString(2);
+        Map<String, Object> eventValue = mapFromJsonString(eventValueJson);
+        TalkingDataSDK.onFavorite(category, content, eventValue);
     }
     
     @SuppressWarnings("unused")
     private void onShare(final JSONArray arguments) throws JSONException {
         String profileId = arguments.getString(0);
         String content = arguments.getString(1);
-        TalkingDataSDK.onShare(profileId, content);
+        String eventValueJson = arguments.getString(2);
+        Map<String, Object> eventValue = mapFromJsonString(eventValueJson);
+        TalkingDataSDK.onShare(profileId, content, eventValue);
     }
     
     @SuppressWarnings("unused")
@@ -233,7 +278,9 @@ public class TalkingDataSDKHybrid {
         String category = arguments.getString(1);
         String name = arguments.getString(2);
         int unitPrice = arguments.getInt(3);
-        TalkingDataSDK.onViewItem(itemId, category, name, unitPrice);
+        String eventValueJson = arguments.getString(4);
+        Map<String, Object> eventValue = mapFromJsonString(eventValueJson);
+        TalkingDataSDK.onViewItem(itemId, category, name, unitPrice, eventValue);
     }
     
     @SuppressWarnings("unused")
@@ -243,7 +290,9 @@ public class TalkingDataSDKHybrid {
         String name = arguments.getString(2);
         int unitPrice = arguments.getInt(3);
         int amount = arguments.getInt(4);
-        TalkingDataSDK.onAddItemToShoppingCart(itemId, category, name, unitPrice, amount);
+        String eventValueJson = arguments.getString(5);
+        Map<String, Object> eventValue = mapFromJsonString(eventValueJson);
+        TalkingDataSDK.onAddItemToShoppingCart(itemId, category, name, unitPrice, amount, eventValue);
     }
     
     @SuppressWarnings("unused")
@@ -258,7 +307,9 @@ public class TalkingDataSDKHybrid {
         String orderJson = arguments.getString(0);
         TalkingDataOrder order = orderFromJsonString(orderJson);
         String profileId = arguments.getString(1);
-        TalkingDataSDK.onPlaceOrder(order, profileId);
+        String eventValueJson = arguments.getString(2);
+        Map<String, Object> eventValue = mapFromJsonString(eventValueJson);
+        TalkingDataSDK.onPlaceOrder(order, profileId, eventValue);
     }
     
     @SuppressWarnings("unused")
@@ -373,7 +424,9 @@ public class TalkingDataSDKHybrid {
         String eventId = arguments.getString(0);
         String eventDataJson = arguments.getString(1);
         Map<String, Object> eventData = mapFromJsonString(eventDataJson);
-        TalkingDataSDK.onEvent(ctx, eventId, eventData);
+        String eventValueJson = arguments.getString(2);
+        Map<String, Object> eventValue = mapFromJsonString(eventValueJson);
+        TalkingDataSDK.onEvent(ctx, eventId, eventData, eventValue);
     }
     
     @SuppressWarnings("unused")
@@ -456,7 +509,7 @@ public class TalkingDataSDKHybrid {
         }
         return result;
     }
-
+    
     private TalkingDataProfile profileFromJsonString(String json) {
         try {
             JSONObject profileJson = new JSONObject(json);
